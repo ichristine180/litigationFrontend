@@ -8,6 +8,8 @@ const globalReducer = createSlice({
     success: null,
     error: null,
     navigateTo: null,
+    applications: [],
+    pendingApp: [],
   },
   reducers: {
     setLoading: (state, action) => {
@@ -22,10 +24,22 @@ const globalReducer = createSlice({
     setNavigateTo: (state, action) => {
       state.navigateTo = action.payload;
     },
+    setApplications: (state, action) => {
+      state.applications = action.payload;
+    },
+    setPendings: (state, action) => {
+      state.pendingApp = action.payload;
+    },
   },
 });
 
-export const { setLoading, setSuccess, setError, setNavigateTo } =
-  globalReducer.actions;
+export const {
+  setLoading,
+  setSuccess,
+  setError,
+  setNavigateTo,
+  setApplications,
+  setPendings,
+} = globalReducer.actions;
 
 export default globalReducer.reducer;

@@ -11,10 +11,11 @@ export const register = (data) => async (dispatch) => {
   }
 };
 
-export const login = (data) => async (dispatch) => {
+export const login = (data, navigate) => async (dispatch) => {
   const res = await callApi({ url: "/login", body: data, dispatch });
-  console.log(res);
-  if (res) 
-    dispatch(loginUser(res?.result));
-  //else dispatch(setError(""))
+  if (res) {
+    localStorage.setItem("user", JSON.stringify(res.result));
+    dispatch(loginUser(res.result));
+    navigate("/");
+  }
 };

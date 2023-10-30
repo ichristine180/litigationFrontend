@@ -1,9 +1,11 @@
 import { useDispatch } from "react-redux";
 import Form from "../common/Form";
 import { login } from "../../redux/thunk/authThunk";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   return (
     <section id="hero" className="d-flex">
       <div className="container">
@@ -29,7 +31,7 @@ const Login = () => {
                 },
               ]}
               onSubmit={(data) => {
-                dispatch(login(data));
+                dispatch(login(data,navigate));
               }}
               submitButtonText="Login"
             />

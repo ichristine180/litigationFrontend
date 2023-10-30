@@ -6,7 +6,7 @@ export const callApi = async (options) => {
     options.dispatch(setLoading(true));
     const config = {
       headers: {
-        Authorization: `Bearer ${options.token}`,
+        authToken: `Bearer ${options.token}`,
         "Content-Type": "application/json", // Set content type if needed
       },
     };
