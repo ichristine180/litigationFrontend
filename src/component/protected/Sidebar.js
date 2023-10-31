@@ -16,7 +16,7 @@ const Sidebar = () => {
     <aside id="sidebar" className="sidebar">
       <ul className="sidebar-nav" id="sidebar-nav">
         <li className="nav-item">
-          <a className="nav-link" href="/">
+          <p className="nav-link"  onClick={() => navigate("/")}>
             <i className="bi bi-grid"></i>
             <span>
               {user.role === 0
@@ -27,7 +27,7 @@ const Sidebar = () => {
                 ? "Lawyer Dashboard"
                 : "Managing Director Dashboard"}
             </span>
-          </a>
+          </p>
         </li>
         {user.role === 0 && (
           <>

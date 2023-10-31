@@ -20,7 +20,6 @@ const OfficerDashboard = () => {
   useFixedFooter();
   const gloabal = useSelector((state) => state.global);
   const dispatch = useDispatch();
-  useFixedFooter();
   useEffect(() => {
     dispatch(getAllApplication({ status: "pending" }, setPendings));
   }, [dispatch]);
@@ -62,13 +61,14 @@ const OfficerDashboard = () => {
     </>
   );
 };
-const Table = ({ data }) => {
+export const Table = ({ data, title }) => {
   const [show, setShow] = useState(false);
   const hideHandler = () => setShow(false);
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth).user?.user;
   return (
     <div class="col-lg-12">
-      <h5 class="card-title">Pending Consulations</h5>
+      <h5 class="card-title">{title || "Pending Consulations"}</h5>
       <table className="table datatable">
         <thead>
           <tr>
@@ -95,12 +95,14 @@ const Table = ({ data }) => {
                 {item.Account?.firstName}|{item.Account?.mobileNo}
               </td>
               <td>
-                <button
-                  className="btn btn-primary"
-                  onClick={() => setShow(item.id)}
-                >
-                  Validate
-                </button>
+                {item.status === "pending" && user.role === 1 && (
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => setShow(item.id)}
+                  >
+                    Validate
+                  </button>
+                )}
               </td>
             </tr>
           ))}

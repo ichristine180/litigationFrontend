@@ -3,11 +3,12 @@ import {
   faScaleBalanced,
   faScaleUnbalancedFlip,
 } from "@fortawesome/free-solid-svg-icons";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserApplication } from "../../../redux/thunk/globalThunk";
+import { getUserApplication, pay } from "../../../redux/thunk/globalThunk";
 import { useFixedFooter } from "../../common/helper";
 import InfoCard from "../../common/InfoCard";
+import { Modal } from "react-bootstrap";
 
 const ClientDashboard = () => {
   const application = useSelector((state) => state.global).applications;
@@ -47,6 +48,12 @@ const ClientDashboard = () => {
   );
 };
 const Table = ({ data }) => {
+  const [show, setShow] = useState(false);
+  const [mobileNo, setMobileNo] = useState("");
+  const hideHandler = () => setShow(false);
+  const rwandaMobileRegex = /^(078|073)\d{7}$/;
+  const [error, setError] = useState();
+  const dispatch = useDispatch();
   return (
     <div class="col-lg-12">
       <h5 class="card-title">All Consulations</h5>
@@ -72,23 +79,70 @@ const Table = ({ data }) => {
               </td>
               <td>{item.status}</td>
               <td>
-                <button
-                  className={`btn btn-primary ${
-                    item.status !== "validated" ? "disabled" : ""
-                  }`}
-                  disabled
-                >
-                  pay Consulation fee
-                </button>
+                {(!item.payment || item.payment?.status === "failed") && (
+                  <button
+                    className={`btn btn-primary ${
+                      item.status === "validated" ? "" : "disabled"
+                    }`}
+                    onClick={() => setShow(item.id)}
+                  >
+                    pay Consulation fee
+                  </button>
+                )}
               </td>
             </tr>
           ))}
         </tbody>
       </table>
       {!data.length && <p className="text-center">No data found</p>}
+      <Modal show={show ? true : false} onHide={hideHandler} centered>
+        <Modal.Body>
+          <p className="text-center text-danger">{error}</p>
+          <div className="mb-3">
+            <label htmlFor="mobileNo" className="form-label">
+              mobile no
+            </label>
+
+            <input
+              type="text"
+              name="mobileNo"
+              placeholder="enter mobile no you want to pay with"
+              value={mobileNo}
+              onChange={(e) => setMobileNo(e.target.value)}
+              className={`form-control`}
+            />
+          </div>
+          <div>
+            <button
+              className="btn btn-secondary pull-left"
+              onClick={hideHandler}
+            >
+              Cancel
+            </button>
+            <button
+              className="btn btn-primary pull-right"
+              onClick={() => {
+                if (!rwandaMobileRegex.test(mobileNo))
+                  setError("Invalid mobile no");
+                else {
+                  setError();
+                  dispatch(
+                    pay({
+                      applicationId: show,
+                      mobileNo,
+                    })
+                  );
+                  setShow(false);
+                }
+              }}
+            >
+              Pay
+            </button>
+          </div>
+        </Modal.Body>
+      </Modal>
     </div>
   );
 };
-
 
 export default ClientDashboard;
