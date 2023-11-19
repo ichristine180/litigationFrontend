@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const InfoCard = ({ title, icon, value, classN }) => {
     const date = new Date();
     return (
-      <div className="col-xxl-4 col-md-6">
+      <div className="col">
         <div className={`card info-card ${classN}-card`}>
           <div className="filter">
             <p className="icon">

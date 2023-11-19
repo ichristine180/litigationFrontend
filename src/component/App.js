@@ -10,7 +10,7 @@ import mpProtected from "../routes/MpProtected";
 import HeaderP from "./protected/Header";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { loginUser } from "../redux/slice/authSlice";
+import { loginUser, logoutUser } from "../redux/slice/authSlice";
 import Sidebar from "./protected/Sidebar";
 import lawyerProtected from "../routes/lawyerProtected";
 
@@ -21,7 +21,7 @@ const App = () => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (user?.token) {
       dispatch(loginUser(user));
-    }
+    } else dispatch(logoutUser());
   }, [dispatch]);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const user = useSelector((state) => state.auth.user);
@@ -37,7 +37,7 @@ const App = () => {
       {isAuthenticated ? (
         <main id="main" className="main">
           <section className="section dashboard">
-            <ProtectedR role={user?.user.role} />
+            <ProtectedR role={user?.user?.role} />
           </section>
         </main>
       ) : (
@@ -68,7 +68,7 @@ const ProtectedR = ({ role }) => {
     body = officerProtected.map((i, key) => (
       <Route path={i.path} element={i.element} key={key} />
     ));
-    if (role === 2)
+  if (role === 2)
     body = lawyerProtected.map((i, key) => (
       <Route path={i.path} element={i.element} key={key} />
     ));

@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 function HeaderP({ user }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const footer = document.getElementById("header");
+  footer.style.backgroundColor = "#fff";
   return (
     <header id="header" className="header fixed-top d-flex align-items-center">
       <div className="d-flex align-items-center justify-content-between">

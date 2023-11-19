@@ -1,5 +1,6 @@
 import {
   faFileAlt,
+  faInfoCircle,
   faScaleUnbalancedFlip,
   faTasksAlt,
   faUsers,
@@ -16,20 +17,20 @@ const Sidebar = () => {
     <aside id="sidebar" className="sidebar">
       <ul className="sidebar-nav" id="sidebar-nav">
         <li className="nav-item">
-          <p className="nav-link"  onClick={() => navigate("/")}>
+          <p className="nav-link" onClick={() => navigate("/")}>
             <i className="bi bi-grid"></i>
             <span>
-              {user.role === 0
+              {user?.role === 0
                 ? "Client Dashboard"
-                : user.role === 1
+                : user?.role === 1
                 ? "Officer Dashboard"
-                : user.role === 2
+                : user?.role === 2
                 ? "Lawyer Dashboard"
-                : "Managing Director Dashboard"}
+                : "MP Dashboard"}
             </span>
           </p>
         </li>
-        {user.role === 0 && (
+        {user?.role === 0 && (
           <>
             <li className="nav-item">
               <p
@@ -63,7 +64,7 @@ const Sidebar = () => {
             </li>
           </>
         )}
-        {user.role === 1 && (
+        {(user?.role === 1 || user?.role === 3) && (
           <>
             <li className="nav-item">
               <p
@@ -84,6 +85,28 @@ const Sidebar = () => {
               >
                 <FontAwesomeIcon icon={faUsers} className="px-2" />
                 <span>Customers</span>
+              </p>
+            </li>
+          </>
+        )}
+        {user?.role === 3 && (
+          <>
+            <li className="nav-item">
+              <p
+                className="nav-link collapsed"
+                onClick={() => navigate("/staff")}
+              >
+                <FontAwesomeIcon icon={faUsers} className="px-2" />
+                <span>Staff management</span>
+              </p>
+            </li>
+            <li className="nav-item">
+              <p
+                className="nav-link collapsed"
+                onClick={() => navigate("/report")}
+              >
+                <FontAwesomeIcon icon={faInfoCircle} className="px-2" />
+                <span>Report</span>
               </p>
             </li>
           </>

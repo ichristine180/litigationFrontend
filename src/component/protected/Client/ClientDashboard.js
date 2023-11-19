@@ -64,6 +64,7 @@ const Table = ({ data }) => {
             <th scope="col">Category</th>
             <th scope="col">Summary</th>
             <th scope="col">Status</th>
+            <th scope="col">Lawyer</th>
             <th scope="col"> </th>
           </tr>
         </thead>
@@ -78,6 +79,9 @@ const Table = ({ data }) => {
                 <div dangerouslySetInnerHTML={{ __html: item.caseSummary }} />
               </td>
               <td>{item.status}</td>
+              <td>
+                {item.Case?.Account.firstName} {item.Case?.Account?.mobileNo}
+              </td>
               <td>
                 {(!item.payment || item.payment?.status === "failed") && (
                   <button

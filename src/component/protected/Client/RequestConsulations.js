@@ -38,9 +38,9 @@ const RequestConsulations = () => {
               }}
             >
               <option value="family">Family case</option>
-              <option value="criminal defense ">Criminal Defense case</option>
+              <option value="criminal defense">Criminal Defense case</option>
               <option value="real estate">Real Estate case</option>
-              <option value="personal injury ">Personal Injury case</option>
+              <option value="personal injury">Personal Injury case</option>
             </select>
           </div>
         </div>

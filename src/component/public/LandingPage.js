@@ -2,8 +2,16 @@ import React from "react";
 
 const LandingPage = () => {
   return (
-    <section id="hero" className="d-flex align-items-center" style={{height: "90vh"}}>
+    <section
+      id="hero"
+      className="d-flex align-items-center"
+      style={{ height: "90vh" }}
+    >
       <div className="container">
+        <div
+          style={{ backgroundImage: `url(assets/img/logo.png)` }}
+          className="logo-img"
+        ></div>
         <div className="row">
           <div className="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
             <h1> Most Trusted Firm with successful cases</h1>

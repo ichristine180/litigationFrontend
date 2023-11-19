@@ -11,7 +11,10 @@ const globalReducer = createSlice({
     applications: [],
     pendingApp: [],
     allApp: [],
-    customers:[]
+    customers: [],
+    approvedApp: [],
+    staffs: [],
+    lawyerApp: [],
   },
   reducers: {
     setLoading: (state, action) => {
@@ -38,6 +41,15 @@ const globalReducer = createSlice({
     setCustomers: (state, action) => {
       state.customers = action.payload;
     },
+    setApprovedApp: (state, action) => {
+      state.approvedApp = action.payload;
+    },
+    setStaffs: (state, action) => {
+      state.staffs = action.payload;
+    },
+    setLawyerApp: (state, action) => {
+      state.lawyerApp = action.payload;
+    },
   },
 });
 
@@ -49,7 +61,10 @@ export const {
   setApplications,
   setPendings,
   setAllApplications,
-  setCustomers
+  setCustomers,
+  setApprovedApp,
+  setStaffs,
+  setLawyerApp,
 } = globalReducer.actions;
 
 export default globalReducer.reducer;

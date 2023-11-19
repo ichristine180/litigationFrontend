@@ -636,8 +636,7 @@ h6 {
 }
 
 @media (min-width: 1200px) {
-  #main,
-  #footer {
+  #main{
     margin-left: 300px;
   }
 }
@@ -1248,4 +1247,13 @@ h6 {
 }
 .pull-left {
   float: left !important;
+}
+.plink {
+  cursor: pointer;
+  font-size: 25px !important;
+  color: #000;
+  font-weight: bolder;
+}
+.plink:hover {
+  color: #3e4f6f !important;
 }

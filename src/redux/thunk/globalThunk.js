@@ -1,9 +1,12 @@
 import { callApi } from "../helper";
 import {
   setApplications,
+  setApprovedApp,
   setCustomers,
+  setLawyerApp,
   setNavigateTo,
   setPendings,
+  setStaffs,
   setSuccess,
 } from "../slice/globalSLice";
 
@@ -79,4 +82,40 @@ export const pay = (data) => async (dispatch) => {
   if (res) {
     dispatch(setSuccess(res.message));
   }
+};
+
+export const getStaffs = () => async (dispatch) => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const options = {
+    url: "/users/staff",
+    dispatch,
+    token: user?.token,
+  };
+  const res = await callApi(options);
+  if (res) dispatch(setStaffs(res.result));
+};
+
+export const assignLawyer = (data) => async (dispatch) => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const res = await callApi({
+    url: "/application/assignLawyer",
+    dispatch,
+    body: data,
+    token: user?.token,
+  });
+  if (res) {
+    dispatch(setSuccess(res.message));
+    dispatch(getAllApplication({ status: "approved" }, setApprovedApp));
+  }
+};
+
+export const getLaywerApplication = () => async (dispatch) => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const options = {
+    url: "/application/lawyerApplication",
+    dispatch,
+    token: user?.token,
+  };
+  const res = await callApi(options);
+  if (res) dispatch(setLawyerApp(res.result));
 };

@@ -77,6 +77,7 @@ export const Table = ({ data, title }) => {
             <th scope="col">Summary</th>
             <th scope="col">Status</th>
             <th scope="col">Customer</th>
+            <th scope="col">Lawyer</th>
             <th scope="col"> </th>
           </tr>
         </thead>
@@ -93,6 +94,9 @@ export const Table = ({ data, title }) => {
               <td>{item.status}</td>
               <td>
                 {item.Account?.firstName}|{item.Account?.mobileNo}
+              </td>
+              <td>
+                {item.Case?.Account.firstName} {item.Case?.Account?.lastName}
               </td>
               <td>
                 {item.status === "pending" && user.role === 1 && (

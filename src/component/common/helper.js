@@ -6,3 +6,8 @@ export const useFixedFooter = () => {
     footer.style.position = "fixed";
   }, []);
 };
+export const getPosition = (item) => {
+  if (item.role === 1) return "Officer";
+  if (item.role === 2) return "Lawyer";
+  if (item.role === 3) return "Managing P";
+};
