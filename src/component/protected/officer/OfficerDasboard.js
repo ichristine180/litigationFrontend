@@ -1,7 +1,5 @@
 import {
   faCheckCircle,
-  faCheckDouble,
-  faScaleBalanced,
   faScaleUnbalancedFlip,
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
@@ -11,9 +9,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import {
   getAllApplication,
+  getCustomers,
   validateApplication,
 } from "../../../redux/thunk/globalThunk";
-import { setPendings } from "../../../redux/slice/globalSLice";
+import { setAllApplications, setPendings } from "../../../redux/slice/globalSLice";
 import { Modal } from "react-bootstrap";
 
 const OfficerDashboard = () => {
@@ -22,39 +21,29 @@ const OfficerDashboard = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllApplication({ status: "pending" }, setPendings));
+    dispatch(getAllApplication(null, setAllApplications));
+    dispatch(getCustomers());
   }, [dispatch]);
   return (
     <>
       <div className="row">
         <InfoCard
-          title="Open cases"
+          title="Pending Consulation"
           icon={faScaleUnbalancedFlip}
-          value="145"
+          value={gloabal.pendingApp?.length}
           classN="sales"
         />
         <InfoCard
-          title="Closed cases"
-          icon={faScaleBalanced}
-          value="$3,264"
-          classN={"customers"}
-        />
-        <InfoCard
-          title="Pending Consulation"
+          title="All Consulation"
           icon={faCheckCircle}
-          value={gloabal?.pendingApp.length}
+          value={gloabal.allApp?.length}
           classN={"revenue"}
         />
         <InfoCard
           title="Customers"
           icon={faUsers}
-          value="$3,264"
+          value={gloabal.customers?.length}
           classN={"customers"}
-        />
-        <InfoCard
-          title="Paid Consultation"
-          icon={faCheckDouble}
-          value="1244"
-          classN={"revenue"}
         />
       </div>
       <Table data={gloabal.pendingApp} />

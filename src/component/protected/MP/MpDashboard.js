@@ -4,13 +4,13 @@ import {
   faScaleUnbalancedFlip,
 } from "@fortawesome/free-solid-svg-icons";
 import InfoCard from "../../common/InfoCard";
-import { getPosition, useFixedFooter } from "../../common/helper";
+import { useFixedFooter } from "../../common/helper";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import {
   assignLawyer,
   getAllApplication,
-  getStaffs,
+  getLawyers,
 } from "../../../redux/thunk/globalThunk";
 import { setApprovedApp, setPendings } from "../../../redux/slice/globalSLice";
 import { Modal } from "react-bootstrap";
@@ -54,6 +54,9 @@ export const Table = ({ data, title }) => {
   const [lawyer, setLawyer] = useState();
   const dispatch = useDispatch();
   const gloabal = useSelector((state) => state.global);
+  useEffect(() => {
+    dispatch(getLawyers());
+  }, [dispatch]);
   return (
     <div class="col-lg-12">
       <h5 class="card-title">{title || "Approved Consulations"}</h5>
@@ -91,7 +94,6 @@ export const Table = ({ data, title }) => {
                   <button
                     className="btn btn-primary"
                     onClick={() => {
-                      dispatch(getStaffs());
                       setShow(item.id);
                     }}
                   >
@@ -113,16 +115,13 @@ export const Table = ({ data, title }) => {
               className="form-select"
             >
               <option>choose laywer</option>
-              {gloabal.staffs
-                ?.filter((i) => i.role === 2)
-                .map((i, key) => {
-                  let position = getPosition(i);
-                  return (
-                    <option value={i.id} key={key}>
-                      {i.firstName}|{position}
-                    </option>
-                  );
-                })}
+              {gloabal.lawyers.map((i, key) => {
+                return (
+                  <option value={i.Account.id} key={key}>
+                    {i.Account.firstName}|{i.category}
+                  </option>
+                );
+              })}
             </select>
           </div>
           <button

@@ -1,5 +1,4 @@
 import {
-  faCheckDouble,
   faScaleBalanced,
   faScaleUnbalancedFlip,
 } from "@fortawesome/free-solid-svg-icons";
@@ -24,23 +23,16 @@ const ClientDashboard = () => {
         <InfoCard
           title="Open cases"
           icon={faScaleUnbalancedFlip}
-          value="145"
+          value={application.length}
           filterOptions={filterOptions}
           classN="sales"
         />
         <InfoCard
           title="Closed cases"
           icon={faScaleBalanced}
-          value="$3,264"
+          value="0"
           filterOptions={filterOptions}
           classN={"customers"}
-        />
-        <InfoCard
-          title="Validated Re"
-          icon={faCheckDouble}
-          value="1244"
-          filterOptions={filterOptions}
-          classN={"revenue"}
         />
       </div>
       <Table data={application} />

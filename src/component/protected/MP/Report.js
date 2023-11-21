@@ -5,11 +5,12 @@ import {
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 import InfoCard from "../../common/InfoCard";
-import {useFixedFooter } from "../../common/helper";
+import { useFixedFooter } from "../../common/helper";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import {
   getAllApplication,
+  getCatReport,
   getCustomers,
 } from "../../../redux/thunk/globalThunk";
 import { setApprovedApp, setPendings } from "../../../redux/slice/globalSLice";
@@ -24,6 +25,7 @@ const LMSReport = () => {
     dispatch(getAllApplication({ status: "approved" }, setApprovedApp));
     dispatch(getAllApplication({ status: "pending" }, setPendings));
     dispatch(getCustomers());
+    dispatch(getCatReport());
   }, [dispatch]);
   return (
     <>
@@ -54,13 +56,12 @@ const LMSReport = () => {
         />
       </div>
       <div className="row">
-      <CategoriesChart />
-      <LawyerChart />
+        <CategoriesChart series={gloabal.catSeries} />
+        <LawyerChart />
       </div>
       {/* <Table data={gloabal.approvedApp} /> */}
     </>
   );
 };
-
 
 export default LMSReport;

@@ -14,7 +14,9 @@ const globalReducer = createSlice({
     customers: [],
     approvedApp: [],
     staffs: [],
+    lawyers:[],
     lawyerApp: [],
+    catSeries: [0, 0, 0, 0],
   },
   reducers: {
     setLoading: (state, action) => {
@@ -47,8 +49,14 @@ const globalReducer = createSlice({
     setStaffs: (state, action) => {
       state.staffs = action.payload;
     },
+    setLawyers: (state, action) => {
+      state.lawyers = action.payload;
+    },
     setLawyerApp: (state, action) => {
       state.lawyerApp = action.payload;
+    },
+    setCatReport: (state, action) => {
+      state.catSeries = action.payload;
     },
   },
 });
@@ -64,7 +72,9 @@ export const {
   setCustomers,
   setApprovedApp,
   setStaffs,
+  setLawyers,
   setLawyerApp,
+  setCatReport,
 } = globalReducer.actions;
 
 export default globalReducer.reducer;

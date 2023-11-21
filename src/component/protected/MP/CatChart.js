@@ -1,9 +1,9 @@
 import React from "react";
 import ReactApexChart from "react-apexcharts";
 
-const CategoriesChart = () => {
+const CategoriesChart = ({series}) => {
   const chartOptions = {
-    series: [44, 55, 13, 43],
+    series:series,
     chart: {
       height: 350,
       type: "pie",

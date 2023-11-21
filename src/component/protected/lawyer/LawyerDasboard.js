@@ -1,5 +1,4 @@
 import {
-  faCheckCircle,
   faFileArrowUp,
   faScaleBalanced,
   faScaleUnbalancedFlip,
@@ -27,27 +26,21 @@ const LawyerDashboard = () => {
     <>
       <div className="row">
         <InfoCard
-          title="Open cases"
+          title="All cases"
           icon={faScaleUnbalancedFlip}
-          value="145"
+          value={gloabal.lawyerApp?.length}
           classN="sales"
         />
         <InfoCard
           title="Closed cases"
           icon={faScaleBalanced}
-          value="$3,264"
+          value="0"
           classN={"customers"}
-        />
-        <InfoCard
-          title="Case assigned to you"
-          icon={faCheckCircle}
-          value={gloabal?.lawyerApp.length}
-          classN={"revenue"}
         />
         <InfoCard
           title="Tasks"
           icon={faTasksAlt}
-          value="$3,264"
+          value="10"
           classN={"customers"}
         />
       </div>

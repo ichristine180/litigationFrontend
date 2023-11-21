@@ -2,8 +2,10 @@ import { callApi } from "../helper";
 import {
   setApplications,
   setApprovedApp,
+  setCatReport,
   setCustomers,
   setLawyerApp,
+  setLawyers,
   setNavigateTo,
   setPendings,
   setStaffs,
@@ -94,7 +96,16 @@ export const getStaffs = () => async (dispatch) => {
   const res = await callApi(options);
   if (res) dispatch(setStaffs(res.result));
 };
-
+export const getLawyers = () => async (dispatch) => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const options = {
+    url: "/users/lawyers",
+    dispatch,
+    token: user?.token,
+  };
+  const res = await callApi(options);
+  if (res) dispatch(setLawyers(res.result));
+};
 export const assignLawyer = (data) => async (dispatch) => {
   const user = JSON.parse(localStorage.getItem("user"));
   const res = await callApi({
@@ -118,4 +129,15 @@ export const getLaywerApplication = () => async (dispatch) => {
   };
   const res = await callApi(options);
   if (res) dispatch(setLawyerApp(res.result));
+};
+
+export const getCatReport = () => async (dispatch) => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const options = {
+    url: "/application/catReport",
+    dispatch,
+    token: user?.token,
+  };
+  const res = await callApi(options);
+  if (res) dispatch(setCatReport(res.result));
 };
