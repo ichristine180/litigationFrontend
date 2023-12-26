@@ -1,7 +1,7 @@
 import React from "react";
 import ReactApexChart from "react-apexcharts";
 
-const LawyerChart = () => {
+const LawyerChart = ({ data }) => {
   const options = {
     chart: {
       type: "bar",
@@ -13,20 +13,7 @@ const LawyerChart = () => {
     },
     series: [
       {
-        data: [
-          {
-            x: "category A",
-            y: 10,
-          },
-          {
-            x: "category B",
-            y: 18,
-          },
-          {
-            x: "category C",
-            y: 13,
-          },
-        ],
+        data,
       },
     ],
   };

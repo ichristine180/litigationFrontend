@@ -12,6 +12,7 @@ import {
   getAllApplication,
   getCatReport,
   getCustomers,
+  getLawyerReport,
 } from "../../../redux/thunk/globalThunk";
 import { setApprovedApp, setPendings } from "../../../redux/slice/globalSLice";
 import CategoriesChart from "./CatChart";
@@ -26,6 +27,7 @@ const LMSReport = () => {
     dispatch(getAllApplication({ status: "pending" }, setPendings));
     dispatch(getCustomers());
     dispatch(getCatReport());
+    dispatch(getLawyerReport());
   }, [dispatch]);
   return (
     <>
@@ -57,7 +59,7 @@ const LMSReport = () => {
       </div>
       <div className="row">
         <CategoriesChart series={gloabal.catSeries} />
-        <LawyerChart />
+        <LawyerChart data={gloabal.lawyerData}/>
       </div>
       {/* <Table data={gloabal.approvedApp} /> */}
     </>

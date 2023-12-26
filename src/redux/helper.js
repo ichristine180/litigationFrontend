@@ -11,9 +11,9 @@ export const callApi = async (options) => {
       },
     };
     const res = await axios.post(baseUrl + options.url, options.body, config);
-    console.log(res);
+    // console.log(res);
     options.dispatch(setLoading(false));
-    console.log(res.data?.isSuccessfull)
+    // console.log(res.data?.isSuccessfull)
     if (res.data?.isSuccessfull) return res.data;
     else throw new Error(res);
   } catch (error) {

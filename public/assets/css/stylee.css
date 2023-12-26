@@ -223,7 +223,13 @@ h6 {
   border-radius: 5px;
   box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
 }
-
+.priority {
+  float: inline-end;
+  background: #4154f1;
+  color: white;
+  padding: 10px;
+  border-radius: 50%;
+}
 .card-header,
 .card-footer {
   border-color: #ebeef4;
@@ -636,7 +642,7 @@ h6 {
 }
 
 @media (min-width: 1200px) {
-  #main{
+  #main {
     margin-left: 300px;
   }
 }

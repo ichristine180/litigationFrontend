@@ -5,7 +5,7 @@ import { getStaffs } from "./globalThunk";
 
 export const register = (data) => async (dispatch) => {
   const res = await callApi({ url: "/users/register", body: data, dispatch });
-  console.log(res);
+  // console.log(res);
   if (res?.message) {
     dispatch(setSuccess(res?.message));
     dispatch(setNavigateTo("/login"));

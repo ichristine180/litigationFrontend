@@ -100,7 +100,20 @@ const Form = ({ fields, onSubmit, submitButtonText }) => {
                   </option>
                 ))}
               </select>
-            ) : (
+            ) :field.type === "textarea" ? (
+              <textarea
+                name={field.name}
+                value={formData[field.name]}
+                onChange={handleChange}
+                className={`form-select ${
+                  validationErrors[field.name] ? "is-invalid" : ""
+                }`}
+                id={field.name}
+                required={field.required}
+              >
+               
+              </textarea>
+            ): (
               <input
                 type={field.type}
                 name={field.name}

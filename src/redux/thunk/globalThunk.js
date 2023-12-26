@@ -5,11 +5,13 @@ import {
   setCatReport,
   setCustomers,
   setLawyerApp,
+  setLawyerReport,
   setLawyers,
   setNavigateTo,
   setPendings,
   setStaffs,
   setSuccess,
+  setTasks,
 } from "../slice/globalSLice";
 
 export const getUserApplication = () => async (dispatch) => {
@@ -130,6 +132,17 @@ export const getLaywerApplication = () => async (dispatch) => {
   const res = await callApi(options);
   if (res) dispatch(setLawyerApp(res.result));
 };
+export const getTasks = (data) => async (dispatch) => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const options = {
+    url: "/task/all",
+    dispatch,
+    token: user?.token,
+  };
+  if (data) options.body = data;
+  const res = await callApi(options);
+  if (res) dispatch(setTasks(res.result));
+};
 
 export const getCatReport = () => async (dispatch) => {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -140,4 +153,38 @@ export const getCatReport = () => async (dispatch) => {
   };
   const res = await callApi(options);
   if (res) dispatch(setCatReport(res.result));
+};
+export const getLawyerReport = () => async (dispatch) => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const options = {
+    url: "/application/lawyerReport",
+    dispatch,
+    token: user?.token,
+  };
+  const res = await callApi(options);
+  if (res) dispatch(setLawyerReport(res.result));
+};
+export const createTask = (data) => async (dispatch) => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const res = await callApi({
+    url: "/task/create",
+    body: data,
+    token: user?.token,
+    dispatch,
+  });
+  if (res?.message) {
+    dispatch(setSuccess(res?.message));
+  }
+};
+
+export const getTaskByCaseId = (data) => async (dispatch) => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const options = {
+    url: "/task/taskByCase",
+    dispatch,
+    token: user?.token,
+  };
+  if (data) options.body = data;
+  const res = await callApi(options);
+  if (res) dispatch(setTasks(res.result));
 };

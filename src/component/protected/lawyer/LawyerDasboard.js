@@ -8,12 +8,10 @@ import InfoCard from "../../common/InfoCard";
 import { useFixedFooter } from "../../common/helper";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import {
-  getLaywerApplication,
-  validateApplication,
-} from "../../../redux/thunk/globalThunk";
+import { createTask, getLaywerApplication, getTasks } from "../../../redux/thunk/globalThunk";
 import { Modal } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Form from "../../common/Form";
 
 const LawyerDashboard = () => {
   useFixedFooter();
@@ -21,6 +19,7 @@ const LawyerDashboard = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getLaywerApplication());
+    dispatch(getTasks());
   }, [dispatch]);
   return (
     <>
@@ -40,7 +39,7 @@ const LawyerDashboard = () => {
         <InfoCard
           title="Tasks"
           icon={faTasksAlt}
-          value="10"
+          value={gloabal.tasks?.length}
           classN={"customers"}
         />
       </div>
@@ -85,12 +84,13 @@ export const Table = ({ data, title }) => {
                   icon={faTasksAlt}
                   title="add task"
                   className="btn btn-primary mb-2"
+                  onClick={() => setShow(item.Case?.id)}
                 />
-                <FontAwesomeIcon
+                {/* <FontAwesomeIcon
                   icon={faFileArrowUp}
                   title="Upload documents"
                   className="btn btn-success"
-                />
+                /> */}
               </td>
             </tr>
           ))}
@@ -98,25 +98,58 @@ export const Table = ({ data, title }) => {
       </table>
       {!data.length && <p className="text-center">No data found</p>}
       <Modal show={show ? true : false} onHide={hideHandler} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Task creation</Modal.Title>
+        </Modal.Header>
         <Modal.Body>
-          <p>Are you sure you want to validate this request ?</p>
-          <div>
-            <button
-              className="btn btn-secondary pull-left"
-              onClick={hideHandler}
-            >
-              Cancel
-            </button>
-            <button
-              className="btn btn-primary pull-right"
-              onClick={() => {
-                dispatch(validateApplication({ id: show }));
-                setShow(false);
-              }}
-            >
-              Validate
-            </button>
-          </div>
+          <Form
+            fields={[
+              {
+                name: "taskTitle",
+                label: "Title",
+                type: "text",
+                required: true,
+              },
+              {
+                name: "taskDescription",
+                label: "Description",
+                type: "textarea",
+                required: true,
+              },
+              {
+                name: "priority",
+                label: "Priority",
+                type: "select",
+                required: true,
+                options: [
+                  { value: "1", label: "1" },
+                  { value: "2", label: "2" },
+                  { value: "3", label: "3" },
+                ],
+              },
+              {
+                name: "dueDate",
+                label: "Due Date",
+                type: "date",
+                required: true,
+              },
+              {
+                name: "dueTime",
+                label: "Due Time",
+                type: "time",
+                required: true,
+              },
+            ]}
+            onSubmit={(data) => {
+              let date = data.dueDate + "T" + data.dueTime;
+              data.dueDate = new Date(date);
+              delete data.dueTime;
+              data.caseId = show;
+              dispatch(createTask(data))
+              hideHandler();
+            }}
+            submitButtonText="Create"
+          />
         </Modal.Body>
       </Modal>
     </div>

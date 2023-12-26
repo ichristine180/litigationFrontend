@@ -1,6 +1,7 @@
 import {
   faScaleBalanced,
   faScaleUnbalancedFlip,
+  faTasksAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,6 +9,8 @@ import { getUserApplication, pay } from "../../../redux/thunk/globalThunk";
 import { useFixedFooter } from "../../common/helper";
 import InfoCard from "../../common/InfoCard";
 import { Modal } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNavigate } from "react-router-dom";
 
 const ClientDashboard = () => {
   const application = useSelector((state) => state.global).applications;
@@ -46,9 +49,10 @@ const Table = ({ data }) => {
   const rwandaMobileRegex = /^(078|073)\d{7}$/;
   const [error, setError] = useState();
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   return (
-    <div class="col-lg-12">
-      <h5 class="card-title">All Consulations</h5>
+    <div className="col-lg-12">
+      <h5 className="card-title">All Consulations</h5>
       <table className="table datatable">
         <thead>
           <tr>
@@ -85,6 +89,12 @@ const Table = ({ data }) => {
                     pay Consulation fee
                   </button>
                 )}
+                <FontAwesomeIcon
+                  icon={faTasksAlt}
+                  title="view task"
+                  className="btn btn-primary mb-2"
+                  onClick={() => navigate(`tasks/${item.Case?.id}`)}
+                />
               </td>
             </tr>
           ))}

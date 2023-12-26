@@ -44,7 +44,7 @@ const Sidebar = () => {
                 <span>Request Consulations</span>
               </p>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <p
                 className="nav-link collapsed"
                 onClick={() => navigate("/tasks")}
@@ -52,8 +52,8 @@ const Sidebar = () => {
                 <FontAwesomeIcon icon={faTasksAlt} className="px-2" />
                 <span>Tasks</span>
               </p>
-            </li>
-            <li className="nav-item">
+            </li> */}
+            {/* <li className="nav-item">
               <p
                 className="nav-link collapsed"
                 onClick={() => navigate("/documents")}
@@ -61,7 +61,7 @@ const Sidebar = () => {
                 <FontAwesomeIcon icon={faFileAlt} className="px-2" />
                 <span>Documents</span>
               </p>
-            </li>
+            </li> */}
           </>
         )}
         {(user?.role === 1 || user?.role === 3) && (
@@ -109,6 +109,29 @@ const Sidebar = () => {
                 <span>Report</span>
               </p>
             </li>
+          </>
+        )}
+         {user?.role === 2 && (
+          <>
+          
+            <li className="nav-item">
+              <p
+                className="nav-link collapsed"
+                onClick={() => navigate("/tasks")}
+              >
+                <FontAwesomeIcon icon={faTasksAlt} className="px-2" />
+                <span>Tasks</span>
+              </p>
+            </li>
+            {/* <li className="nav-item">
+              <p
+                className="nav-link collapsed"
+                onClick={() => navigate("/documents")}
+              >
+                <FontAwesomeIcon icon={faFileAlt} className="px-2" />
+                <span>Documents</span>
+              </p>
+            </li> */}
           </>
         )}
       </ul>
